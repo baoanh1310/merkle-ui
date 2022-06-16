@@ -3,6 +3,8 @@ import {functionCall} from 'near-api-js/lib/transaction';
 import BN from 'bn.js';
 import getConfig from './config';
 import SpecialWallet from "~utils/SpecialWallet";
+import SHA256 from 'crypto-js/sha256';
+import { MerkleTree } from 'merkletreejs'
 
 const env: string = process.env.NEAR_ENV || "development";
 export const config: any = getConfig(env);
@@ -17,7 +19,7 @@ export const STAKING_STORAGE_AMOUNT = '0.01';
 export const FT_STORAGE_AMOUNT = '0.01';
 export const ONE_YOCTO_NEAR = '0.000000000000000000000001';
 
-export const wallet = new SpecialWallet(near, config.VBI_STAKING_CONTRACT);
+export const wallet = new SpecialWallet(near, config.MERKLE_AIRDROP_CONTRACT);
 
 export const getGas = (gas: string) => gas ? new BN(gas) : new BN('100000000000000');
 export const getAmount = (amount: string) => amount ? new BN(utils.format.parseNearAmount(amount)) : new BN('0');
@@ -62,7 +64,7 @@ export const executeMultipleTransactions = async (
 };
 
 export const login = async () => {
-    await wallet.requestSignIn(config.VBI_STAKING_CONTRACT);
+    await wallet.requestSignIn(config.MERKLE_AIRDROP_CONTRACT);
 }
 
 export const logout = () => {
@@ -158,4 +160,21 @@ export const toReadableNumberString = (
 
 export function formatNumber(num: number) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+export function buildMerkleTree(_leaves: any) {
+    const leaves = _leaves.map((x: any) => SHA256(x))
+    const tree = new MerkleTree(leaves, SHA256)
+    return tree
+  }
+  
+export function getProof(tree: any, leaf: any) {
+    let proof = tree.getProof(leaf)
+    proof = proof.map((x: { position: string; data: { toString: (arg0: string) => string[]; }; }) => {
+        let y = { position: '', data: [''] }
+        y.position = x.position
+        y.data = x.data.toString('hex')
+        return y
+    })
+    return proof
 }

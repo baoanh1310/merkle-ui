@@ -21,9 +21,7 @@ const MainLayout = (props: any) => {
 
     const menu = (
       <Menu className={"p-2 rounded" }>
-          <Menu.Item onClick={() => history.push("/faucet")} key="faucet" icon={<DollarOutlined />}>
-              Faucet
-          </Menu.Item>
+          
           <Menu.Item onClick={() => history.push("/account")} key="account" icon={<UserOutlined />}>
               Account
           </Menu.Item>
@@ -43,28 +41,16 @@ const MainLayout = (props: any) => {
                   <div style={{width: 150}}>
                       <Link to={"/"} className={"flex justify-start items-center"}>
                           <img src={logo} style={{width: 40, height: 40, marginRight: 15}} alt=""/>
-                          <span className={"text-2xl font-extrabold sm:hidden xs:hidden"}>VBI DEV</span>
+                          <span className={"text-2xl font-extrabold sm:hidden xs:hidden"}>CEUS</span>
                       </Link>
                   </div>
                   <div className={"flex-1 xs:hidden sm:hidden md:hidden"}>
                       <ul className={"flex flex-row justify-center items-center mb-0"}>
                           <li>
-                              <Link className={`p-4 text-lg ${isSelected("/") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/"}>Swap</Link>
+                              <Link className={`p-4 text-lg ${isSelected("/") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/"}>Airdrop</Link>
                           </li>
                           <li>
-                              <Link className={`p-4 text-lg ${isSelected("/pools") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/pools"}>Pools</Link>
-                          </li>
-                          <li>
-                              <Link className={`p-4 text-lg ${isSelected("/staking") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/staking"}>Staking</Link>
-                          </li>
-                          <li>
-                              <Link className={`p-4 text-lg ${isSelected("/faucet") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/faucet"}>Faucet</Link>
-                          </li>
-                          <li>
-                              <Link className={`p-4 text-lg ${isSelected("/nft") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/nft"}>NFTs</Link>
-                          </li>
-                          <li>
-                              <Link className={`p-4 text-lg ${isSelected("/wrap-near") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/wrap-near"}>Wrap NEAR</Link>
+                              <Link className={`p-4 text-lg ${isSelected("/pools") ? "border-b-2 border-greenColor text-greenColor" : "hover:border-b-2 hover:border-greenColor hover:text-greenColor"} text-gray-400 cursor-pointer`} to={"/claim"}>Claim</Link>
                           </li>
                       </ul>
                   </div>

@@ -1,5 +1,5 @@
 {
-  "name": "vbi-ui",
+  "name": "ceus-merkle-ui",
   "version": "1.0.0",
   "license": "MIT OR Apache-2.0",
   "scripts": {
@@ -23,6 +23,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.5",
     "@types/bn.js": "^5.1.0",
+    "@types/crypto-js": "^4.1.1",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.171",
     "@types/mathjs": "^6.0.11",
@@ -56,11 +57,13 @@
     "bignumber.js": "^9.0.1",
     "bn.js": "^5.2.0",
     "borsh": "^0.3.1",
+    "crypto-js": "^4.1.1",
     "dexie": "^3.0.3",
     "locales": "^0.0.2",
     "lodash": "^4.17.21",
     "lzutf8": "^0.6.0",
     "mathjs": "^9.3.0",
+    "merkletreejs": "^0.2.31",
     "moment": "^2.29.1",
     "near-api-js": "^0.44.2",
     "react": "^16.0.0 || ^17.0.0",

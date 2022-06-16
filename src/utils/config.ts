@@ -12,6 +12,7 @@ function getConfig(env: string) {
                 VBI_FT_CONTRACT: "ft.vbidev.near",
                 VBI_FAUCET_FT_CONTRACT: "faucet-vbic.vbidev.near",
                 VBI_SIMPLE_POOL_CONTRACT: 'simple-pool.vbidev.near',
+                MERKLE_AIRDROP_CONTRACT: 'merkle1.icebear.near',
                 WRAP_NEAR_CONTRACT: "wrap.near"
             }
         case 'development':
@@ -26,6 +27,7 @@ function getConfig(env: string) {
                 VBI_FT_CONTRACT: "ft.vbidev.testnet",
                 VBI_FAUCET_FT_CONTRACT: "faucet-vbic.vbidev.testnet",
                 VBI_SIMPLE_POOL_CONTRACT: 'simple-pool.vbidev.testnet',
+                MERKLE_AIRDROP_CONTRACT: 'merkle1.icebear.testnet',
                 WRAP_NEAR_CONTRACT: "wrap.testnet"
             }
         default:
