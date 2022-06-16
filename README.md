@@ -1,6 +1,6 @@
-# VBI-UI
+# CEUS-MERKLE-AIRDROP-UI
 
-This is the front-end for VBI examples.
+This is the front-end for CEUS airdrop website.
 
 ## Quick Start
 
