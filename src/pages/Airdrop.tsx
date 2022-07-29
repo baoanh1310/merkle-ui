@@ -190,7 +190,7 @@ function Airdrop() {
                 </Form.Item>
 
                 <Form.Item
-                    label="List of Addresses in CSV"
+                    label="List of Addresses"
                     name="address"
                     rules={[
                         {
