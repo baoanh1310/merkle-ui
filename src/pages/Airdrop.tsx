@@ -17,12 +17,13 @@ function Airdrop() {
     const [userAddresses, setUserAddresses] = useState("");
     const [tokenAddress, setTokenAddress] = useState("");
 
-    const [numberCampaign, setNumberCampaign] = useState(0)
+    const [numberCampaign, setNumberCampaign] = useState(0);
 
     const getCampaignData = async () => {
         // @ts-ignore
-        let numCampaign = await airdropContract.total_number_airdrop_campaigns()
-        setNumberCampaign(numCampaign + 1)
+        let numCampaign = await airdropContract.total_number_airdrop_campaigns();
+        numCampaign = parseInt(numCampaign);
+        setNumberCampaign(numCampaign + 1);
     }
 
     const refreshData = () => {
@@ -62,9 +63,9 @@ function Airdrop() {
             console.log("User balance: ", airdropOwnerFtBalance);
             if (airdropOwnerFtBalance < ft_balance) {
                 notification["warning"]({
-                    message: `Số dư ${ft_name} không đủ`,
+                    message: `NOT ENOUGH ${ft_name} IN YOUR BALANCE`,
                     description:
-                    'Tài khoản của bạn không đủ số dư để tạo airdrop!',
+                    'YOUR BALANCE IS NOT ENOUGH TO CREATE AIRDROP!',
                 });
                 return;
             }
@@ -152,6 +153,64 @@ function Airdrop() {
         reader.readAsText(e.target.files[0])
     }
 
+    const handleChange = async (e: any) => {
+        e.preventDefault();
+        
+        if (e.target.files && e.target.files.length > 0) {
+            const reader = new FileReader()
+            reader.onload = async (e) => { 
+                const text: string = (e.target.result).toString()
+                let arr = text.split('\n')
+                let lines = []
+                for (let line of arr) {
+                    let subarr = line.split(',')
+                    let newLine = subarr.join(' ')
+                    lines.push(newLine)
+                }
+                let addresses = lines.join('\n')
+                let l = [numberCampaign];
+                let balance = 0.0;
+                let regex = /\s+/;
+                for (let address of lines) {
+                    let line = address.trim();
+                    if (line != '') {
+                        l.push(line);
+                        let arr = line.split(regex);
+                        balance += parseInt(arr[1])
+                    }
+                }
+                setUserAddresses(addresses)
+                setLeave(l);
+                setFtBalane(balance);
+                let preview = document.getElementById('userAddresses');
+                preview.innerHTML = addresses
+                console.log("Preview: ", preview);
+                console.log("token address: ", tokenAddress);
+                console.log("leave: ", leave);
+                console.log("user addresses: ", userAddresses);
+                console.log("balance: ", ft_balance);
+            };
+            reader.readAsText(e.target.files[0])
+        } else {
+            let addresses = e.target.value;
+            setUserAddresses(addresses);
+            let userAddresses = addresses.split('\n');
+            let l = [numberCampaign];
+            let balance = 0.0;
+            let regex = /\s+/;
+            for (let address of userAddresses) {
+                let line = address.trim();
+                if (line != '') {
+                    l.push(line);
+                    let arr = line.split(regex);
+                    balance += parseFloat(arr[1])
+                }
+            }
+            setLeave(l);
+            setFtBalane(balance);
+        }
+    }
+
     console.log("token address: ", tokenAddress);
     console.log("leave: ", leave);
     console.log("user addresses: ", userAddresses);
@@ -159,7 +218,8 @@ function Airdrop() {
     console.log("Server URL: ", SERVER_URL)
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+            
             <Form
                 style={{width: '50%'}}
                 name="basic"
@@ -170,7 +230,6 @@ function Airdrop() {
                     span: 16,
                 }}
                 initialValues={{
-                    
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -200,14 +259,15 @@ function Airdrop() {
                     ]}
                 >
                     {/* <textarea id="userAddresses" rows={20} cols={50} value={userAddresses} onChange={handleLeaveChange} /> */}
-                    <Input.TextArea id="userAddresses" rows={20} cols={50} value={userAddresses} onChange={handleLeaveChange} />
+                    <Input.TextArea name="userAddresses" id="userAddresses" rows={20} cols={50} value={userAddresses} onChange={handleChange} />
                 </Form.Item>
 
                 <Form.Item
                     name="upload"
                     label="Upload CSV"
                 >
-                    <input type="file" onChange={handleCSVFileChange} />
+                    {/* <input type="file" onChange={handleCSVFileChange} /> */}
+                    <input type="file" onChange={handleChange} />
                 </Form.Item>
 
                 <Form.Item
@@ -220,8 +280,8 @@ function Airdrop() {
                         Airdrop
                     </Button>
                 </Form.Item>
+                
             </Form>
-        
         </div>
     )
 }
