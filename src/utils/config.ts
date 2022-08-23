@@ -27,7 +27,7 @@ function getConfig(env: string) {
                 VBI_FT_CONTRACT: "ft.vbidev.testnet",
                 VBI_FAUCET_FT_CONTRACT: "faucet-vbic.vbidev.testnet",
                 VBI_SIMPLE_POOL_CONTRACT: 'simple-pool.vbidev.testnet',
-                MERKLE_AIRDROP_CONTRACT: 'merkle1.icebear.testnet',
+                MERKLE_AIRDROP_CONTRACT: 'ncd.icebear.testnet',
                 WRAP_NEAR_CONTRACT: "wrap.testnet"
             }
         default:

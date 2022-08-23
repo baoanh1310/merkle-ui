@@ -65,23 +65,33 @@ const CampaignItem = ({airdrop_id, ft_symbol, ft_icon, owner, ft_name, leave, me
     const href = config.explorerUrl + "/accounts/" + tokenAddress;
     console.log(`Merkle root: ${airdrop_id}`, merkle_root)
 
+    console.log("Leave: ", leave);
     const tree = buildMerkleTree(leave)
     let regex = /\s+/;
-    let leaf = '';
+    let leaf = null;
     let amount = 0.0
     for (let l of leave) {
         let arr = l.split(regex)
+        if (arr.length <= 1) {
+            continue
+        }
         let account = arr[0]
-        console.log(arr)
-        console.log("leaf: ", l)
+        
         if (account == wallet.getAccountId()) {
             amount = parseFloat(arr[1])
             leaf = SHA256(l)
+            console.log("leaf: ", leaf.toString())
             break
         }
          
     }
-    const proof = getProof(tree, leaf)
+    console.log("Tree: ", tree);
+    let proof: any
+    if (leaf != null) {
+        proof = getProof(tree, leaf)
+    } else {
+        proof = ''
+    }
     console.log(`Airdrop ${airdrop_id} of ${wallet.getAccountId()}: ${amount} token`)
     const description = `Campaign owner: ${owner}. Number of token to claim: ${amount} ${ft_symbol}`;
 

@@ -168,7 +168,7 @@ function Airdrop() {
                     lines.push(newLine)
                 }
                 let addresses = lines.join('\n')
-                let l = [numberCampaign];
+                let l = [numberCampaign.toString()];
                 let balance = 0.0;
                 let regex = /\s+/;
                 for (let address of lines) {
@@ -176,7 +176,7 @@ function Airdrop() {
                     if (line != '') {
                         l.push(line);
                         let arr = line.split(regex);
-                        balance += parseInt(arr[1])
+                        balance += parseFloat(arr[1])
                     }
                 }
                 setUserAddresses(addresses)
@@ -195,7 +195,7 @@ function Airdrop() {
             let addresses = e.target.value;
             setUserAddresses(addresses);
             let userAddresses = addresses.split('\n');
-            let l = [numberCampaign];
+            let l = [numberCampaign.toString()];
             let balance = 0.0;
             let regex = /\s+/;
             for (let address of userAddresses) {
